@@ -11,7 +11,13 @@ module Docs
       end
 
       def get_type
-        if slug =~ /\Acli\//
+        if slug.include?('module')
+          if name =~ /\A[a-z]/ && node = css('.toctree-l2.current').last
+            "Modules: #{node.content.remove(' Modules')}"
+          else
+            'Modules'
+          end
+        elsif slug =~ /\Acli\//
           'CLI Reference'
         elsif slug =~ /\Anetwork\//
           'Network'
